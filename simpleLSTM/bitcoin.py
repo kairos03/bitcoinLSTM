@@ -21,7 +21,7 @@ def create_dataset(dataset, look_back=1):
 
 if __name__ == "__main__":
 
-  raw_data = pd.read_csv("bitcoin_ticker.csv")
+  raw_data = pd.read_csv("../data/bitcoin_ticker.csv")
   kor_data = raw_data.loc[(raw_data['rpt_key'] == 'btc_krw')]
   kor_data = kor_data.reset_index(drop=True)
   kor_data['datetime'] = pd.to_datetime(kor_data['datetime_id'])
@@ -58,7 +58,7 @@ if __name__ == "__main__":
   model.add(LSTM(4, input_shape=(1, look_back)))
   model.add(Dense(1))
   model.compile(loss='mean_squared_error', optimizer='adam')
-  model.fit(trainX, trainY, epochs=1000, batch_size=256, verbose=2)
+  model.fit(trainX, trainY, epochs=100, batch_size=256, verbose=2)
 
   # make predictions
   trainPredict = model.predict(trainX)
